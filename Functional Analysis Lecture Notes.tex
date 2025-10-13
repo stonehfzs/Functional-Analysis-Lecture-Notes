@@ -1,0 +1,131 @@
+% \documentclass[lang=cn,newtx,10pt,scheme=chinese]{elegantbook}
+\documentclass[theorem=false,mathfont=none,openany,sub3section]{easybook}
+
+\usepackage[lang=cn]{eb-elegantbook}
+\usepackage{lmodern}
+\usepackage{codehigh}
+\lstset{moreemph={nofont,thmenv}}
+
+\renewcommand{\rmdefault}{lmr}
+\renewcommand{\sfdefault}{lmss}
+\renewcommand{\ttdefault}{lmtt}
+
+\title{Functional Analysis}
+\subtitle{Lecture Notes}
+\author{Stone Sun}
+%\institute{Ocean University of China}
+\date{\today}
+%\version{}
+\bioinfo{联系方式}{hefengzhishui@outlook.com}
+
+%\extrainfo{注意：Elegant系列模板自 2023 年 1 月 1 日开始，不再更新和维护！}
+
+\setcounter{tocdepth}{3}
+
+\logo{logo.jpg}
+\cover{cover.jpg}
+
+% 本文档命令
+% \usepackage{array}
+\newcommand{\ccr}[1]{\makecell{{\color{#1}\rule{1cm}{1cm}}}}
+
+% 修改标题页的橙色带
+\definecolor{customcolor}{RGB}{32,178,170}
+\colorlet{coverlinecolor}{customcolor}
+% \usepackage{cprotect}
+
+\addbibresource[location=local]{reference.bib} % 参考文献，不要删除
+
+% 定义\btocgroup和\etocgroup命令把目录风格限制在组内，使其局部生效
+\newcommand{\btocgroup}[1][toc]{\addtocontents{#1}{\string\begingroup}}
+\newcommand{\etocgroup}[1][toc]{\addtocontents{#1}{\string\endgroup}}
+%\SetTocStyle{chapter}{emph}{tocformat+ = \color{black}}
+\let\ls\lstinline
+\ebhdrset{footnotetype=flush}
+\ctexset{
+  paragraph/numbering=false,
+  paragraph/beforeskip=1explus.2ex
+  }
+\SetTocStyle{subsubsection}{sub2}{
+  tocindent=3.8em,
+  tocformat+=\color{blue}
+  }
+\UseTocStyle{subsubsection}{sub2}{toc}
+
+\begin{document}
+
+\maketitle
+\begin{center}
+谨以此篇, 献给热爱分析的你.\par
+\end{center}
+\frontmatter
+
+\begingroup
+\renewcommand{\familydefault}{\rmdefault}
+\tableofcontents
+\endgroup
+
+\newpage
+\begin{center}
+\Large
+\textbf{前言}\par
+\end{center}
+
+\hspace{2em}
+
+\begin{flushright}
+\text{Stone Sun}\\
+\text{\today}
+\end{flushright}
+
+\mainmatter
+
+\btocgroup
+\UseTocStyle{chapter}{emph}{toc}
+\chapter{距离空间}
+\etocgroup
+
+\section{距离空间基本概念}
+
+距离空间是泛函分析研究的基础, 也是拓扑学的基础. 本章我们将介绍距离空间的基本概念, 并举一些例子, 以便理解一些重要的定理.\par
+
+\subsection{距离的定义}
+
+\begin{definition}
+  设$X$是一个非空点集, 如果存在一个函数$d: X \times X \to \mathbb{R}$, 使得对于任意的$x, y, z \in X$都有以下公理化条件成立:
+
+  \begin{enumerate}
+      \item $d(x, y) = 0 \iff x = y$
+      \item $d(x, y) = d(y, x)$
+      \item $d(x, z) \leq d(x, y) + d(y, z)$
+  \end{enumerate}
+
+  那么我们称$d$为$X$上的一个距离, 并称$(X, d)$为一个距离空间, 简记为$X$.\par
+
+\end{definition}
+
+距离空间上显然成立的一个定理是Cauchy-Schwarz不等式:\par
+
+\begin{definition}
+  设$\vec{\alpha}= (a_1, a_2, \cdots, a_n)$和$\vec{\beta} = (b_1, b_2, \cdots, b_n)$是$\mathbb{R}^n$中的两个向量, 则有:\par
+  \begin{itemize}
+    \item $\vec{\alpha} \cdot \vec{\beta} = \sum_{i=1}^n a_i b_i$
+    \item $\sum_{i=1}^n a_i b_i \leq \left(\sum_{i=1}^n a_i^2\right)^{1/2} \cdot \left(\sum_{i=1}^n b_i^2\right)^{1/2}$
+    \item $\sum_{i=1}^n \left(a_i+b_i\right)^2 \leq \left(\left(\sum_{i=1}^n a_i^2\right)^{1/2} + \left(\sum_{i=1}^n b_i^2\right)^{1/2}\right)^2$
+  \end{itemize}
+\end{definition}
+
+\subsection{距离空间的例子}
+
+\begin{example}
+    实数集$\mathbb{R}$上的标准距离定义为$d(x, y) = |x - y|$. 这使得$\mathbb{R}$成为一个距离空间.
+\end{example}
+
+\begin{example}
+    欧几里得空间$\mathbb{R}^n$上的标准距离定义为$d(\mathbf{x}, \mathbf{y}) = \|\mathbf{x} - \mathbf{y}\|_2 = \sqrt{\sum_{i=1}^n (x_i - y_i)^2}$. 这使得$\mathbb{R}^n$成为一个距离空间.
+\end{example}
+
+\backmatter
+
+
+\end{document}
