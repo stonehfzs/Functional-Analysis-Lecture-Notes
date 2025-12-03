@@ -115,15 +115,160 @@
   \end{itemize}
 \end{theorem}
 
+\begin{proof}
+  这里我们仅对第三条不等式证明:\par
+  \begin{align*}
+    \sum_{i=1}^n \left(a_i+b_i\right)^2 
+    &= \sum_{i=1}^n a_i^2 + 2\sum_{i=1}^n a_ib_i + \sum_{i=1}^n b_i^2 \\
+    &\leq \sum_{i=1}^n a_i^2 + 2\left(\sum_{i=1}^n a_i^2 \right)^{1/2}\left(\sum_{i=1}^n b_i^2 \right)^{1/2} + \sum_{i=1}^n b_i^2 \\
+    &= \left(\left(\sum_{i=1}^n a_i^2\right)^{1/2} + \left(\sum_{i=1}^n b_i^2\right)^{1/2}\right)^2
+  \end{align*}
+  \end{proof}
+
 \subsection{距离空间的例子}
 
 \begin{example}
-    实数集$\mathbb{R}$上的标准距离定义为$d(x, y) = |x - y|$. 这使得$\mathbb{R}$成为一个距离空间.
+  实数集$\mathbb{R}^n$上的标准距离定义为$d(\vec{x}, \vec{y}) = \sqrt{\sum_{i=1}^{n} (x_i - y_i)^2}$. 则$(\mathbb{R}^n, d)$成为一个距离空间.
+\end{example}
+
+\begin{proof}
+  我们仅证明三角不等式:\par
+  \begin{align*}
+    d(\vec{x}, \vec{z}) &= \sqrt{\sum_{i=1}^{n} (x_i - z_i)^2} = \sqrt{\sum_{i=1}^{n} (x_i - y_i + y_i - z_i)^2} \\
+    &\leq \sqrt{\left(\sqrt{\sum_{i=1}^{n} (x_i - y_i)^2} + \sqrt{\sum_{i=1}^{n} (y_i - z_i)^2}\right)^2} \\
+    &= d(\vec{x}, \vec{y}) + d(\vec{y}, \vec{z})
+  \end{align*}
+\end{proof}
+
+\begin{remark}
+  特别地, 实数空间$\mathbb{R}$上的标准距离$d(x, y) = |x - y|$使得$(\mathbb{R}, d)$成为一个距离空间.
+\end{remark}
+
+\begin{example}
+  $[a,b]$上的连续函数空间$C[a,b]$上的距离定义为$d(f, g) = \max_{x \in [a,b]} |f(x) - g(x)|$. 则$(C[a,b], d)$成为一个距离空间.
+\end{example}
+
+\begin{proof}
+  我们仅证明三角不等式:\par
+  \begin{align*}
+    d(f, h) &= \max_{x \in [a,b]} |f(x) - h(x)| = \max_{x \in [a,b]} |f(x) - g(x) + g(x) - h(x)| \\
+    &\leq \max_{x \in [a,b]} |f(x) - g(x)| + \max_{x \in [a,b]} |g(x) - h(x)| \\
+    &= d(f, g) + d(g, h)
+  \end{align*}
+\end{proof}
+
+\begin{remark}
+  事实上一个空间上可以规定若干不同的距离, 只需要满足上述的三个公理化条件即可. 例如: 在$\mathbb{R}$上可定义$d_1(x,y)=\frac{|x-y|}{1+|x-y|}$.\par
+  下面证明三角不等式成立:
+  \begin{align*}
+    d_1(x,z) &= \frac{|x-z|}{1+|x-z|} = \frac{|x-y+y-z|}{1+|x-y+y-z|} \\
+    &\leq \frac{|x-y| + |y-z|}{1 + |x-y| + |y-z|} \\
+    &= \frac{|x-y|}{1+|x-y|+|y-z|} + \frac{|y-z|}{1+|x-y|+|y-z|} \\
+    &\leq \frac{|x-y|}{1+|x-y|} + \frac{|y-z|}{1+|y-z|} = d_1(x,y) + d_1(y,z).
+  \end{align*}
+  上述不等式中, $\phi(t)=\frac{t}{1+t}$在$t>-1$上单调增保证了$\phi(|x-y| + |y-z|) \leq \phi(|x-y|) + \phi(|y-z|)$.\par
+  这里我们用$d_1$表示距离, 以和$d$进行区分.\par
+\end{remark}
+
+\begin{example}
+  记所有实数列构成空间$S$. $\forall x = \{\xi _n\}, y = \{\eta_n\}$, 规定距离$d(x,y) = \sum_{n=1}^{\infty} \frac{1}{2^n} \frac{|\xi_n - \eta_n|}{1 + |\xi_n - \eta_n|}$. 则$(S, d)$成为一个距离空间.
 \end{example}
 
 \begin{example}
-    欧几里得空间$\mathbb{R}^n$上的标准距离定义为$d(\mathbf{x}, \mathbf{y}) = \|\mathbf{x} - \mathbf{y}\|_2 = \sqrt{\sum_{i=1}^n (x_i - y_i)^2}$. 这使得$\mathbb{R}^n$成为一个距离空间.
+  记所有有限可测集上的可测函数构成空间$S$. 设$E$有限可测, $\forall x,y \in S$, 规定距离$d(x,y) = \int_E \frac{|x(t) - y(t)|}{1 + |x(t) - y(t)|}\mathrm{d}t$. 则$(S, d)$成为一个距离空间.
 \end{example}
+
+\begin{example}
+  记所有可测集$E$上的所有$p$次幂$L$可积的可测函数构成集合$L^p(E)$, 其中$1 \leq p < +\infty$. 设$\forall x,y \in L^p(E)$, 规定距离$d(x,y) = \left(\int_E |f(t) - g(t)|^p \mathrm{d}t\right)^{1/p}$. 则$(L^p(E), d)$成为一个距离空间.
+\end{example}
+
+\begin{remark}
+  $L^p(E)$上的距离满足的条件后证.
+\end{remark}
+
+\begin{example}
+  设满足下列条件的数列构成空间$l^p (p\geq 1)$: $x = \{x_n\} \in l^p \iff \sum_{n=1}^{\infty} |x_n|^p < +\infty$. 则定义距离为$d(x,y) = \left(\sum_{n=1}^{\infty} |x_n - y_n|^p\right)^{1/p}$. 则$(l^p, d)$成为一个距离空间.
+\end{example}
+
+\begin{remark}
+  $l^p$上的距离满足的条件后证.
+\end{remark}
+
+\begin{example}
+  在任意非空点集$X$上定义距离$d(x,y) = 1$ if $x \neq y$ and $d(x,x) = 0$. 则$(X,d)$成为一个距离空间, 称为离散距离空间.
+\end{example}
+
+\subsection{距离空间点列的收敛性}
+
+\begin{definition}
+  设$(X,d)$是一个距离空间, $\{x_n\}$是$X$中的一个点列, 存在$x_0 \in X$, 使$\forall \varepsilon > 0$, $\exists N>0$, 当$n > N$时都有$d(x_n, x_0) < \varepsilon$, 则称点列$\{x_n\}$收敛于$x_0$, 记为$\lim_{n \to \infty} x_n = x_0$或$x_n \to x_0$.\par
+\end{definition}
+
+对于一般点列的收敛性, 我们还有如下定理:\par
+\begin{theorem}
+  \begin{itemize}
+    \item 设$(X,d)$是一个距离空间, $\{x_n\}$是$X$中的一个点列, 则$\{x_n\}$的极限唯一.
+    \item 设$(X,d)$是一个距离空间, $\{x_n\}$是$X$中的一个点列, $\lim_{n \to \infty} x_n = x_0$, 则$\forall$子列$\{x_{n_k}\}$都有$\lim_{k \to \infty} x_{n_k} = x_0$.
+    \item 设$(X,d)$是一个距离空间, 若$\{x_n\} \to x_0, \{y_n\} \to y_0$, 则$d(x_n, y_n) \to d(x_0, y_0)$.
+  \end{itemize}
+\end{theorem}
+
+下面我们再讨论一些函数空间的特性, 具体来说, 我们主要讨论收敛性.\par
+
+\begin{proposition}
+  在有限可测集$E$上的可测函数空间$S$中, 点列$\{x_n\}$收敛于$x$等价于$\{x_n\}$依测度收敛于$x$.\par
+\end{proposition}
+
+\begin{proof}
+  若$\{x_n\}$依测度收敛至$x_0$, 则$\forall \varepsilon > 0$, 有$\lim_{n \to \infty} m\{t \in E: |x_n(t) - x_0(t)| \geq \varepsilon\} = 0$. 考虑距离$d(x_n, x_0) = \int_E \frac{|x_n(t) - x_0(t)|}{1 + |x_n(t) - x_0(t)|}\mathrm{d}t = \int_{\{t:|x_n(t) - x_0(t)| < \varepsilon\}} + \int_{\{t:|x_n(t) - x_0(t)| \geq \varepsilon\}}$.\par
+  因为$E$的测度有限, 故存在$N>0$, 当$n > N$时都有$m\{t \in E: |x_n(t) - x_0(t)| \geq \varepsilon\} < \frac{\varepsilon}{2}$.\par
+  因此$d(x_n, x_0) \leq \varepsilon \cdot m(E) + m\{t \in E: |x_n(t) - x_0(t)| \geq \varepsilon\} < \frac{\varepsilon}{1+\varepsilon} \cdot m(E) + \frac{\varepsilon}{2} = \varepsilon$. 取$\varepsilon$足够小, 则$d(x_n, x_0) < \delta$, 即$\{x_n\}$收敛于$x_0$.\par
+  若$\{x_n\}$收敛于$x_0$, 则$\forall \varepsilon > 0$, 存在$N>0$, 当$n > N$时都有$d(x_n, x_0) = \int_E \frac{|x_n(t) - x_0(t)|}{1 + |x_n(t) - x_0(t)|}\mathrm{d}t < \varepsilon$. 因为$\frac{|x_n(t) - x_0(t)|}{1 + |x_n(t) - x_0(t)|} \geq \frac{\delta}{1+\delta}$当且仅当$|x_n(t) - x_0(t)| \geq \delta$, 故有$m\{t \in E: |x_n(t) - x_0(t)| \geq \delta\} \leq \frac{1+\delta}{\delta} d(x_n, x_0) < \frac{1+\delta}{\delta} \varepsilon$. 取$\varepsilon$足够小, 则$m\{t \in E: |x_n(t) - x_0(t)| \geq \delta\} < \eta$, 即$\{x_n\}$依测度收敛于$x_0$.\par
+\end{proof}
+
+\begin{proposition}
+  在距离空间$C[a,b]$中, $d(x_n,x_0)\to 0$等价于$\{x_n\}$在$[a,b]$上一致收敛于$x_0$.\par
+\end{proposition}
+
+\begin{proof}
+  若$\{x_n\}$在$[a,b]$上一致收敛于$x_0$, 则$\forall \varepsilon > 0$, 存在$N>0$, 当$n > N$时都有$\forall t \in [a,b], |x_n(t) - x_0(t)| < \varepsilon$. 因此$d(x_n, x_0) = \max_{t \in [a,b]} |x_n(t) - x_0(t)| < \varepsilon$, 即$d(x_n, x_0) \to 0$.\par
+  若$d(x_n, x_0) \to 0$, 则$\forall \varepsilon > 0$, 存在$N>0$, 当$n > N$时都有$d(x_n, x_0) = \max_{t \in [a,b]} |x_n(t) - x_0(t)| < \varepsilon$. 因此$\forall t \in [a,b], |x_n(t) - x_0(t)| < \varepsilon$, 即$\{x_n\}$在$[a,b]$上一致收敛于$x_0$.\par
+\end{proof}
+
+\subsection{连续映射与等距映射}
+
+最后我们给出两种映射的定义, 这会在有界算子空间中用到.\par
+
+\begin{definition}
+  设$(X,d_X)$和$(Y,d_Y)$是两个距离空间, 双射$f: X \to Y$称为连续的, 如果$\forall x_0 \in X$, $\forall \varepsilon > 0$, 存在$\delta > 0$, 当$d_X(x, x_0) < \delta$时都有$d_Y(f(x), f(x_0)) < \varepsilon$.\par
+\end{definition}
+
+\begin{definition}
+  设$(X,d_X)$和$(Y,d_Y)$是两个距离空间, 双射$f: X \to Y$称为等距的, 如果$\forall x_1, x_2 \in X$, 都有$d_Y(f(x_1), f(x_2)) = d_X(x_1, x_2)$.\par
+\end{definition}
+
+\begin{remark}
+  显然等距映射必然是连续映射.
+\end{remark}
+
+进一步地, 我们也有距离空间等距的概念.\par
+
+\begin{definition}
+  设$(X,d_X)$和$(Y,d_Y)$是两个距离空间, 如果存在一个等距映射$f: X \to Y$, 则称$X$和$Y$是等距的.\par
+\end{definition}
+
+\section{距离空间的点集}
+
+这一部分主要是介绍距离空间中的点集概念, 包括开集、闭集、稠密集等内容. 这一切都是需要距离才能够定义的, 因此我们在这里讨论.\par
+
+\subsection{相关概念}
+
+\begin{definition}
+  设$(X,d)$是一个距离空间, $A$是$X$的一个非空子集, 则可以定义下列概念:\par
+  \begin{itemize}
+    \item 在$X$中, 称子集$S(x_0,r)=\{x: d(x,x_0) < r\}$为以$x_0$为中心, $r$为半径的开球.
+  \end{itemize}
+\end{definition}
 
 \backmatter
 
